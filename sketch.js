@@ -1,4 +1,4 @@
-let beat,Analyzer
+let beat,analyzer
 
 function preload() {
 beat = loadSound('beat.mp3');
@@ -7,6 +7,9 @@ beat = loadSound('beat.mp3');
 function setup() {
 let myCanvas = createCanvas(600, 400);
 myCanvas.parent('myContainer');
+
+analyzer = new p5.Amplitude();
+analyzer.setInput(beat);
 }
 
 function mousePressed() {
