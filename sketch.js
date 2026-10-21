@@ -1,15 +1,25 @@
 let beat, analyzer;
 
-// Load sound file before canvas loads so it is ready
+// Load sound file before the canvas loads so it is ready
 function preload() {
-  beat = loadSound('beat.wav');
+  beat = loadSound('beat.mp3');
 }
 
 function setup() {
   let myCanvas = createCanvas(600, 400);
   myCanvas.parent('myContainer');
+
   analyzer = new p5.Amplitude();
   analyzer.setInput(beat);
+}
+
+// Browsers block autoplay, so a click starts/stops the sound
+function mousePressed() {
+  if (beat.isPlaying()) {
+    beat.stop();
+  } else {
+    beat.loop();
+  }
 }
 
 function draw() {
@@ -26,16 +36,8 @@ function draw() {
 
   fill(127);
   stroke(0);
-  // Draw an ellipse with size based on volume
-  ellipse(width / 2, height / 2, 10 + rms * 200, 10 + rms * 200);
-}
 
-// Browsers block autoplay, so use a click to start/stop the sound
-function mousePressed() {
-  if (beat.isPlaying()) {
-    beat.stop();
-  } else {
-    beat.loop();
-  }
+  // Circle size based on volume
+  ellipse(width / 2, height / 2, 10 + rms * 200, 10 + rms * 200);
 }
 
